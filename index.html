@@ -43,4 +43,91 @@
   .avatar {
     width: 96px;
     height: 96px;
-    border-radius:
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin: 8px 0 2px;
+  }
+
+  .subtitle {
+    font-size: .9rem;
+    opacity: .8;
+  }
+
+  .tags {
+    margin: 12px 0;
+    font-size: .8rem;
+    opacity: .85;
+  }
+
+  a.button {
+    display: block;
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+    font-weight: 600;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+
+  a.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(56,189,248,.4);
+  }
+
+  .links {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .links a {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    background: #020617;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: #e5e7eb;
+    font-size: .85rem;
+  }
+
+  footer {
+    margin-top: 14px;
+    font-size: .7rem;
+    opacity: .5;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <!-- Optional avatar -->
+  <img src="avatar.jpg" class="avatar" alt="Profile photo"/>
+
+  <h1>Ishara Fernando</h1>
+  <div class="subtitle">Senior Software Engineer</div>
+  <div class="tags">Java • Spring Boot • Cloud • DevOps</div>
+
+  <a href="vcard.vcf" download class="button">📇 Add to Contacts</a>
+
+  <div class="links">
+    <a href="https://github.com/your-username">GitHub</a>
+    <a href="mailto:ishara@email.com">Email</a>
+  </div>
+
+  <footer>
+    Singapore 🇸🇬
+  </footer>
+</div>
+
+</body>
+</html>
