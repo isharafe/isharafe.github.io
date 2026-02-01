@@ -11,10 +11,10 @@ const CARD = {
 
   phoneDisplay: "+94 71 101 7053",
   // digits for tel/wa links (no spaces, no +)
-  phoneDigits: "94711017053",
+  phoneDigits: "+94711017053",
 
   whatsappDisplay: "+94 72 213 9530",
-  whatsappDigits: "94722139530",
+  whatsappDigits: "+94722139530",
 
   email: "lumoraart.rv@gmail.com",
   website: "https://lumora-art.github.io/",
