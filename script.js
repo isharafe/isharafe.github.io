@@ -1,21 +1,29 @@
-// Edit these values once and the whole page + vCard will match.
 const CARD = {
   fullName: "Lumora Rrt",
   org: "Lumora",
   title: "rv pencil drawing",
-  note: "The magic of hand-drawn art to turn your beautiful memories into eternal souvenirs - LUMORA Art.",
+  bio: "The magic of hand-drawn art to turn your beautiful memories into eternal souvenirs - LUMORA Art.",
+
   phone: "+94 71 101 7053",
-  // For WhatsApp link you need digits only (country code + number, no +, no spaces)
   whatsappDigits: "94711017053",
   email: "lumoraart29@gmail.com",
-  website: "https://YOURNAME.github.io/",     // change this
-  facebook: "https://www.facebook.com/profile.php?id=61584333012504",      // change this
-  instagram: "https://www.instagram.com/",    // change this
+
+  social: {
+    facebook: "https://www.facebook.com/",
+    instagram: "https://www.instagram.com/"
+  },
+
+  website: "https://YOURNAME.github.io/"
 };
 
-function escapeVCF(text) {
-  // vCard escaping rules (basic)
-  return String(text)
+// ---------- helpers ----------
+function el(id) {
+  return document.getElementById(id);
+}
+
+// ---------- vCard ----------
+function escapeVCF(v) {
+  return String(v)
     .replaceAll("\\", "\\\\")
     .replaceAll("\n", "\\n")
     .replaceAll(",", "\\,")
@@ -23,77 +31,71 @@ function escapeVCF(text) {
 }
 
 function buildVCard() {
-  // vCard 3.0 is widely supported
-  const lines = [
+  return [
     "BEGIN:VCARD",
     "VERSION:3.0",
     `FN:${escapeVCF(CARD.fullName)}`,
     `N:${escapeVCF(CARD.fullName)};;;;`,
-    CARD.org ? `ORG:${escapeVCF(CARD.org)}` : null,
-    CARD.title ? `TITLE:${escapeVCF(CARD.title)}` : null,
-    CARD.phone ? `TEL;TYPE=CELL,VOICE:${escapeVCF(CARD.phone)}` : null,
-    CARD.email ? `EMAIL;TYPE=INTERNET:${escapeVCF(CARD.email)}` : null,
-    CARD.website ? `URL:${escapeVCF(CARD.website)}` : null,
-    CARD.note ? `NOTE:${escapeVCF(CARD.note)}` : null,
-    "END:VCARD",
-  ].filter(Boolean);
-
-  // Use CRLF for best compatibility
-  return lines.join("\r\n");
+    `ORG:${escapeVCF(CARD.org)}`,
+    `TITLE:${escapeVCF(CARD.title)}`,
+    `TEL;TYPE=CELL:${escapeVCF(CARD.phone)}`,
+    `EMAIL:${escapeVCF(CARD.email)}`,
+    `URL:${escapeVCF(CARD.website)}`,
+    `NOTE:${escapeVCF(CARD.bio)}`,
+    "END:VCARD"
+  ].join("\r\n");
 }
 
-function download(filename, content, mime) {
-  const blob = new Blob([content], { type: mime });
-  const url = URL.createObjectURL(blob);
+function download(filename, text) {
+  const blob = new Blob([text], { type: "text/vcard" });
   const a = document.createElement("a");
-  a.href = url;
+  a.href = URL.createObjectURL(blob);
   a.download = filename;
-  document.body.appendChild(a);
   a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  URL.revokeObjectURL(a.href);
 }
 
-function wireUI() {
-  // Fill UI text (optional, but nice)
-  document.getElementById("displayName").textContent = CARD.fullName;
-  document.getElementById("roleLine").textContent = CARD.title;
-  document.getElementById("companyLine").textContent = CARD.org;
-  document.getElementById("bio").textContent = `“${CARD.note}”`;
-  document.getElementById("year").textContent = new Date().getFullYear();
+// ---------- wire page ----------
+function init() {
+  // text
+  el("displayName").textContent = CARD.fullName;
+  el("roleLine").textContent = CARD.title;
+  el("companyLine").textContent = CARD.org;
+  el("bio").textContent = `“${CARD.bio}”`;
+  el("year").textContent = new Date().getFullYear();
 
-  // Buttons
-  const btnSave = document.getElementById("btnSave");
-  btnSave.addEventListener("click", () => {
-    const vcf = buildVCard();
-    const safeName = CARD.fullName.replace(/[^\w\s-]/g, "").trim().replace(/\s+/g, "_");
-    download(`${safeName || "contact"}.vcf`, vcf, "text/vcard");
-  });
+  // phone
+  el("phoneText").textContent = CARD.phone;
+  el("contactPhone").href = `tel:${CARD.phone.replace(/\s+/g, "")}`;
+  el("btnCall").href = `tel:${CARD.phone.replace(/\s+/g, "")}`;
 
-  const btnShare = document.getElementById("btnShare");
-  btnShare.addEventListener("click", async () => {
+  // email
+  el("emailText").textContent = CARD.email;
+  el("contactEmail").href = `mailto:${CARD.email}`;
+
+  // whatsapp
+  el("btnWhatsApp").href = `https://wa.me/${CARD.whatsappDigits}`;
+
+  // social
+  el("facebookLink").href = CARD.social.facebook;
+  el("instagramLink").href = CARD.social.instagram;
+
+  // save contact
+  el("btnSave").onclick = () => {
+    const name = CARD.fullName.replace(/\s+/g, "_");
+    download(`${name}.vcf`, buildVCard());
+  };
+
+  // share
+  el("btnShare").onclick = async () => {
     const url = window.location.href;
-    try {
-      if (navigator.share) {
-        await navigator.share({ title: document.title, text: CARD.fullName, url });
-      } else {
-        await navigator.clipboard.writeText(url);
-        alert("Link copied!");
-      }
-    } catch {
-      // user cancelled share or clipboard denied
+    if (navigator.share) {
+      await navigator.share({ title: CARD.fullName, url });
+    } else {
+      await navigator.clipboard.writeText(url);
+      alert("Link copied");
     }
-  });
-
-  // Update call/whatsapp links based on config
-  const call = document.getElementById("btnCall");
-  call.href = `tel:${CARD.phone.replace(/\s+/g, "")}`;
-
-  const wa = document.getElementById("btnWhatsApp");
-  wa.href = `https://wa.me/${CARD.whatsappDigits}`;
-
-  // You can optionally wire social links in the HTML list too
-  // (keeping it simple: edit the hrefs in index.html for now)
+  };
 }
 
-wireUI();
+init();
