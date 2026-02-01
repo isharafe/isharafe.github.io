@@ -1,0 +1,35 @@
+qrencode "https://isharafe.github.io/" -o qr.png
+
+
+Flag	Meaning
+-l H	Error correction level High
+-s 10	Module size (bigger = easier to scan)
+-m 4	Quiet zone margin (keep this!)
+
+qrencode \
+  -o qr.png \
+  -l H \
+  -s 10 \
+  -m 4 \
+  "https://isharafe.github.io/"
+
+
+qrencode \
+  -t SVG \
+  -o qr.svg \
+  -l H \
+  -m 4 \
+  "https://isharafe.github.io/"
+
+
+
+magick qr.png -strip qr-clean.png
+
+
+
+
+magick qr.png \
+  \( logo.jpg -resize 90% \) \
+  -gravity center \
+  -composite qr-logo.png
+
