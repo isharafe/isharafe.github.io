@@ -8,11 +8,12 @@ const CARD = {
 
   phone: "+94 71 101 7053",
   phoneDigits: "94711017053",
+  whatsapp: "94722139530",
 
   email: "lumoraart29@gmail.com",
 
   social: {
-    facebook: "https://www.facebook.com/",
+    facebook: "https://www.facebook.com/profile.php?id=61584333012504",
     instagram: "https://www.instagram.com/"
   },
 
@@ -57,39 +58,60 @@ function download(filename, content) {
 
 // -----------------------------
 
+const $ = (id) => document.getElementById(id);
+
+const els = {
+  displayName: $("displayName"),
+  roleLine: $("roleLine"),
+  companyLine: $("companyLine"),
+  bio: $("bio"),
+  avatar: $("avatar"),
+  year: $("year"),
+  btnSave: $("btnSave"),
+  btnCall: $("btnCall"),
+  btnWhatsApp: $("btnWhatsApp"),
+  btnShare: $("btnShare"),
+  phoneItem: $("phoneItem"),
+  phoneLabel: $("phoneLabel"),
+  emailItem: $("emailItem"),
+  emailLabel: $("emailLabel"),
+  facebookItem: $("facebookItem"),
+  instagramItem: $("instagramItem"),
+};
+
+
 function wireUI() {
-  // Text
-  displayName.textContent = CARD.fullName;
-  roleLine.textContent = CARD.title;
-  companyLine.textContent = CARD.company;
-  bio.textContent = `“${CARD.bio}”`;
-  avatar.src = CARD.avatar;
-  year.textContent = new Date().getFullYear();
+  els.displayName.textContent = CARD.fullName;
+  els.roleLine.textContent = CARD.title;
+  els.companyLine.textContent = CARD.company;
+  els.bio.textContent = `“${CARD.bio}”`;
+  els.avatar.src = CARD.avatar;
+  els.year.textContent = new Date().getFullYear();
 
   // Phone
-  btnCall.href = `tel:${CARD.phoneDigits}`;
-  phoneItem.href = `tel:${CARD.phoneDigits}`;
-  phoneLabel.textContent = CARD.phone;
+  els.btnCall.href = `tel:${CARD.phoneDigits}`;
+  els.phoneItem.href = `tel:${CARD.phoneDigits}`;
+  els.phoneLabel.textContent = CARD.phone;
 
   // Email
-  emailItem.href = `mailto:${CARD.email}`;
-  emailLabel.textContent = CARD.email;
+  els.emailItem.href = `mailto:${CARD.email}`;
+  els.emailLabel.textContent = CARD.email;
 
   // WhatsApp
-  btnWhatsApp.href = `https://wa.me/${CARD.phoneDigits}`;
+  els.btnWhatsApp.href = `https://wa.me/${CARD.whatsapp}`;
 
   // Social
-  facebookItem.href = CARD.social.facebook;
-  instagramItem.href = CARD.social.instagram;
+  els.facebookItem.href = CARD.social.facebook;
+  els.instagramItem.href = CARD.social.instagram;
 
-  // Save Contact
-  btnSave.onclick = () => {
+  // Save contact
+  els.btnSave.onclick = () => {
     const safeName = CARD.fullName.replace(/\s+/g, "_");
     download(`${safeName}.vcf`, buildVCard());
   };
 
   // Share
-  btnShare.onclick = async () => {
+  els.btnShare.onclick = async () => {
     const url = location.href;
     if (navigator.share) {
       await navigator.share({ title: CARD.fullName, url });
