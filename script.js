@@ -17,7 +17,7 @@ const CARD = {
     instagram: "https://www.instagram.com/"
   },
 
-  website: "https://YOURNAME.github.io/"
+  website: "https://lumora-art.github.io/"
 };
 
 // -----------------------------
