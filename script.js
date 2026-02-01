@@ -9,7 +9,7 @@ const CARD = {
   whatsappDigits: "94711017053",
   email: "lumoraart29@gmail.com",
   website: "https://YOURNAME.github.io/",     // change this
-  facebook: "https://www.facebook.com/",      // change this
+  facebook: "https://www.facebook.com/profile.php?id=61584333012504",      // change this
   instagram: "https://www.instagram.com/",    // change this
 };
 
