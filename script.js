@@ -4,7 +4,7 @@
 const CARD = {
   fullName: "Lumora Art",
   title: "rv pencil drawing",
-  company: "Lumora Art",
+  company: "Lumora",
   bio: "The magic of hand-drawn art to turn your beautiful memories into eternal souvenirs — LUMORA Art.",
 
   avatar: "assets/avatar.jpg",
