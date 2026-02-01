@@ -3,40 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LUMORA Art — Digital Card</title>
-  <meta name="description" content="The magic of hand-drawn art to turn your beautiful memories into eternal souvenirs — LUMORA Art." />
-
-  <!-- Optional: nice preview when sharing -->
-  <meta property="og:title" content="LUMORA Art — Digital Card" />
-  <meta property="og:description" content="Hand-drawn art • Turn memories into souvenirs" />
-  <meta property="og:type" content="website" />
-  <!-- Update with your real URL + image -->
-  <!-- <meta property="og:url" content="https://YOURNAME.github.io/" /> -->
-  <!-- <meta property="og:image" content="https://YOURNAME.github.io/assets/avatar.jpg" /> -->
+  <title>Digital Card</title>
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
   <main class="page">
-    <section class="card" aria-label="Digital business card">
+    <section class="card">
       <header class="header">
         <img class="avatar" src="assets/avatar.jpg" alt="Profile photo" />
+
         <div class="title">
-          <h1 id="displayName">Lumora Rrt</h1>
-          <p class="subtitle" id="roleLine">rv pencil drawing</p>
-          <p class="company" id="companyLine">Lumora</p>
+          <h1 id="displayName"></h1>
+          <p class="subtitle" id="roleLine"></p>
+          <p class="company" id="companyLine"></p>
         </div>
       </header>
 
-      <p class="bio" id="bio">
-        “The magic of hand-drawn art to turn your beautiful memories into eternal souvenirs — LUMORA Art.”
-      </p>
+      <p class="bio" id="bio"></p>
 
-      <div class="actions" role="group" aria-label="Quick actions">
+      <div class="actions">
         <button class="btn primary" id="btnSave">Save Contact</button>
-        <a class="btn" id="btnCall" href="tel:+94711017053">Call</a>
-        <a class="btn" id="btnWhatsApp" href="https://wa.me/94711017053" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn" id="btnCall">Call</a>
+        <a class="btn" id="btnWhatsApp" target="_blank">WhatsApp</a>
         <button class="btn" id="btnShare">Share</button>
       </div>
 
@@ -46,17 +36,17 @@
         <h2>Contact</h2>
         <ul class="list">
           <li>
-            <a class="item" href="tel:+94711017053">
-              <span class="icon" aria-hidden="true">📞</span>
-              <span class="label">+94 71 101 7053</span>
+            <a class="item" id="contactPhone">
+              <span class="icon">📞</span>
+              <span class="label" id="phoneText"></span>
               <span class="hint">Mobile</span>
             </a>
           </li>
 
           <li>
-            <a class="item" href="mailto:lumoraart29@gmail.com">
-              <span class="icon" aria-hidden="true">✉️</span>
-              <span class="label">lumoraart29@gmail.com</span>
+            <a class="item" id="contactEmail">
+              <span class="icon">✉️</span>
+              <span class="label" id="emailText"></span>
               <span class="hint">Email</span>
             </a>
           </li>
@@ -67,15 +57,15 @@
         <h2>Social</h2>
         <ul class="list">
           <li>
-            <a class="item" href="https://www.facebook.com/" target="_blank" rel="noopener">
-              <span class="icon" aria-hidden="true">📘</span>
+            <a class="item" id="facebookLink" target="_blank">
+              <span class="icon">📘</span>
               <span class="label">Facebook</span>
               <span class="hint">Open</span>
             </a>
           </li>
           <li>
-            <a class="item" href="https://www.instagram.com/" target="_blank" rel="noopener">
-              <span class="icon" aria-hidden="true">📷</span>
+            <a class="item" id="instagramLink" target="_blank">
+              <span class="icon">📷</span>
               <span class="label">Instagram</span>
               <span class="hint">Open</span>
             </a>
@@ -84,7 +74,7 @@
       </section>
 
       <footer class="footer">
-        <small>© <span id="year"></span> LUMORA Art</small>
+        <small>© <span id="year"></span></small>
       </footer>
     </section>
   </main>
