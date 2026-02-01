@@ -1,11 +1,14 @@
 const CARD = {
   fullName: "Lumora Rrt",
-  org: "Lumora",
   title: "rv pencil drawing",
-  bio: "The magic of hand-drawn art to turn your beautiful memories into eternal souvenirs - LUMORA Art.",
+  company: "Lumora Art",
+  bio: "The magic of hand-drawn art to turn your beautiful memories into eternal souvenirs — LUMORA Art.",
+
+  avatar: "assets/avatar.jpg",
 
   phone: "+94 71 101 7053",
-  whatsappDigits: "94711017053",
+  phoneDigits: "94711017053",
+
   email: "lumoraart29@gmail.com",
 
   social: {
@@ -16,12 +19,8 @@ const CARD = {
   website: "https://YOURNAME.github.io/"
 };
 
-// ---------- helpers ----------
-function el(id) {
-  return document.getElementById(id);
-}
+// -----------------------------
 
-// ---------- vCard ----------
 function escapeVCF(v) {
   return String(v)
     .replaceAll("\\", "\\\\")
@@ -36,7 +35,7 @@ function buildVCard() {
     "VERSION:3.0",
     `FN:${escapeVCF(CARD.fullName)}`,
     `N:${escapeVCF(CARD.fullName)};;;;`,
-    `ORG:${escapeVCF(CARD.org)}`,
+    `ORG:${escapeVCF(CARD.company)}`,
     `TITLE:${escapeVCF(CARD.title)}`,
     `TEL;TYPE=CELL:${escapeVCF(CARD.phone)}`,
     `EMAIL:${escapeVCF(CARD.email)}`,
@@ -46,56 +45,59 @@ function buildVCard() {
   ].join("\r\n");
 }
 
-function download(filename, text) {
-  const blob = new Blob([text], { type: "text/vcard" });
+function download(filename, content) {
+  const blob = new Blob([content], { type: "text/vcard" });
+  const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
+  a.href = url;
   a.download = filename;
   a.click();
-  URL.revokeObjectURL(a.href);
+  URL.revokeObjectURL(url);
 }
 
-// ---------- wire page ----------
-function init() {
-  // text
-  el("displayName").textContent = CARD.fullName;
-  el("roleLine").textContent = CARD.title;
-  el("companyLine").textContent = CARD.org;
-  el("bio").textContent = `“${CARD.bio}”`;
-  el("year").textContent = new Date().getFullYear();
+// -----------------------------
 
-  // phone
-  el("phoneText").textContent = CARD.phone;
-  el("contactPhone").href = `tel:${CARD.phone.replace(/\s+/g, "")}`;
-  el("btnCall").href = `tel:${CARD.phone.replace(/\s+/g, "")}`;
+function wireUI() {
+  // Text
+  displayName.textContent = CARD.fullName;
+  roleLine.textContent = CARD.title;
+  companyLine.textContent = CARD.company;
+  bio.textContent = `“${CARD.bio}”`;
+  avatar.src = CARD.avatar;
+  year.textContent = new Date().getFullYear();
 
-  // email
-  el("emailText").textContent = CARD.email;
-  el("contactEmail").href = `mailto:${CARD.email}`;
+  // Phone
+  btnCall.href = `tel:${CARD.phoneDigits}`;
+  phoneItem.href = `tel:${CARD.phoneDigits}`;
+  phoneLabel.textContent = CARD.phone;
 
-  // whatsapp
-  el("btnWhatsApp").href = `https://wa.me/${CARD.whatsappDigits}`;
+  // Email
+  emailItem.href = `mailto:${CARD.email}`;
+  emailLabel.textContent = CARD.email;
 
-  // social
-  el("facebookLink").href = CARD.social.facebook;
-  el("instagramLink").href = CARD.social.instagram;
+  // WhatsApp
+  btnWhatsApp.href = `https://wa.me/${CARD.phoneDigits}`;
 
-  // save contact
-  el("btnSave").onclick = () => {
-    const name = CARD.fullName.replace(/\s+/g, "_");
-    download(`${name}.vcf`, buildVCard());
+  // Social
+  facebookItem.href = CARD.social.facebook;
+  instagramItem.href = CARD.social.instagram;
+
+  // Save Contact
+  btnSave.onclick = () => {
+    const safeName = CARD.fullName.replace(/\s+/g, "_");
+    download(`${safeName}.vcf`, buildVCard());
   };
 
-  // share
-  el("btnShare").onclick = async () => {
-    const url = window.location.href;
+  // Share
+  btnShare.onclick = async () => {
+    const url = location.href;
     if (navigator.share) {
       await navigator.share({ title: CARD.fullName, url });
     } else {
       await navigator.clipboard.writeText(url);
-      alert("Link copied");
+      alert("Link copied!");
     }
   };
 }
 
-init();
+wireUI();
