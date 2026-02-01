@@ -17,7 +17,7 @@
   --radius: 18px;
 }
 
-html[data-theme="light"] {
+html:is([data-theme="pencil"], [data-theme="light"]) {
   --bg: #f6f7fb;
   --bg2: #e9eef8;
   --card: rgba(255, 255, 255, 0.9);
@@ -28,6 +28,52 @@ html[data-theme="light"] {
 
   --accent: #7c3aed;
   --accent2: #16a34a;
+}
+
+/* =========================
+   PENCIL THEME BACKGROUND
+   ========================= */
+
+html[data-theme="pencil"] body {
+  background-color: #f7f6f2; /* paper */
+  background-image:
+    /* light paper grain */
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0.02) 0px,
+      rgba(0,0,0,0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    /* pencil streaks */
+    repeating-linear-gradient(
+      90deg,
+      rgba(0,0,0,0.03) 0px,
+      rgba(0,0,0,0.03) 2px,
+      transparent 2px,
+      transparent 6px
+    );
+}
+
+html[data-theme="pencil"] .card {
+  background-color: #f7f6f2; /* paper */
+  background-image:
+  /* light paper grain */
+  repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.02) 0px,
+    rgba(0,0,0,0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  ),
+  /* pencil streaks */
+  repeating-linear-gradient(
+    90deg,
+    rgba(0,0,0,0.03) 0px,
+    rgba(0,0,0,0.03) 2px,
+    transparent 2px,
+    transparent 6px
+  );
 }
 
 /* Smooth theme transitions */
@@ -161,7 +207,36 @@ body {
 
 .btn:active { transform: translateY(0); }
 
+/* Green primary action */
 .btn.primary {
+  border-color: color-mix(in srgb, #22c55e 55%, transparent);
+  background: linear-gradient(
+    135deg,
+    #22c55e,
+    #16a34a
+  );
+  color: #ffffff;
+}
+
+.btn.primary:hover {
+  border-color: #22c55e;
+  background: linear-gradient(
+    135deg,
+    #16a34a,
+    #15803d
+  );
+}
+
+.btn.primary:active {
+  transform: translateY(0);
+  background: linear-gradient(
+    135deg,
+    #15803d,
+    #166534
+  );
+}
+
+html[data-theme="pencil"] .btn.primary {
   position: relative;
   color: #0f172a;
   font-weight: 700;
@@ -189,29 +264,6 @@ body {
     0 6px 18px rgba(0,0,0,.25);
 
   border-radius: 14px;
-}
-
-.btn.primary:hover {
-  background:
-    repeating-linear-gradient(
-      -45deg,
-      rgba(0,0,0,0.1) 0px,
-      rgba(0,0,0,0.1) 1px,
-      transparent 1px,
-      transparent 3px
-    ),
-    linear-gradient(
-      135deg,
-      #fafafa,
-      #e5e5e5
-    );
-}
-
-.btn.primary:active {
-  transform: translateY(1px);
-  box-shadow:
-    inset 0 2px 4px rgba(0,0,0,.25),
-    0 3px 10px rgba(0,0,0,.2);
 }
 
 .sep {
@@ -245,7 +297,6 @@ body {
   width: 100%;
 }
 
-
 /* Optional: improve wrapping on very small screens */
 @media (max-width: 420px) {
   .section-title {
@@ -262,8 +313,6 @@ body {
     grid-template-columns: 1fr;
   }
 }
-
-
 
 .list {
   list-style: none;
