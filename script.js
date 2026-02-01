@@ -64,17 +64,21 @@ const els = {
 // 3) Theme toggle
 // =============================
 const THEME_KEY = "card-theme"; // "dark" | "light"
+const THEMES = ["dark", "light", "pencil"];
 
 function applyTheme(theme) {
-  // theme must be "dark" or "light"
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem(THEME_KEY, theme);
-  els.themeToggle.textContent = theme === "dark" ? "🌙" : "☀️";
+
+  els.themeToggle.textContent =
+    theme === "dark"   ? "🌙" :
+    theme === "light"  ? "☀️" : "✏️";
 }
+
 
 function initTheme() {
   const saved = localStorage.getItem(THEME_KEY);
-  if (saved === "dark" || saved === "light") {
+  if (saved === "dark" || saved === "light" || saved === "pencil") {
     applyTheme(saved);
     return;
   }
@@ -201,7 +205,9 @@ function wireUI() {
   // Theme toggle click
   els.themeToggle.addEventListener("click", () => {
     const current = document.documentElement.getAttribute("data-theme") || "dark";
-    applyTheme(current === "dark" ? "light" : "dark");
+    const index = THEMES.indexOf(current);
+    const nextIndex = (index + 1) % THEMES.length;
+    applyTheme(THEMES[nextIndex]);
   });
 }
 
