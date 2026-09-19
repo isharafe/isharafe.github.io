@@ -374,3 +374,9 @@ html[data-theme="pencil"] .btn.primary {
 .icon.whatsapp {
   color: #22c55e; /* WhatsApp green */
 }
+
+.sponsor {
+  display: flex;
+  justify-content: center;
+  margin: 18px 0;
+}
