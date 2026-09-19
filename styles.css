@@ -380,3 +380,39 @@ html[data-theme="pencil"] .btn.primary {
   justify-content: center;
   margin: 18px 0;
 }
+
+.sponsor-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 14px;
+
+  border: 1px solid var(--border, #444);
+  border-radius: 8px;
+
+  background: var(--card-bg, #1f1f1f);
+  color: var(--text, #ffffff);
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.sponsor-btn:hover {
+  background: rgba(219, 97, 162, 0.12);
+  border-color: #db61a2;
+  transform: translateY(-1px);
+}
+
+.sponsor-icon {
+  color: #db61a2;
+  font-size: 16px;
+}
